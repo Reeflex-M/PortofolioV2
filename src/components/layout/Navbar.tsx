@@ -5,13 +5,19 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
+import { FiGithub, FiLinkedin } from "react-icons/fi";
+import { HiOutlineDocumentText } from "react-icons/hi";
 
 const navItems = [
-  { href: "#home", label: "Accueil" },
-  { href: "#about", label: "À propos" },
-  { href: "#projects", label: "Projets" },
-  { href: "#skills", label: "Compétences" },
+  { href: "#skills", label: "Mes compétences" },
+  { href: "#projects", label: "Mes projets" },
   { href: "#contact", label: "Contact" },
+];
+
+const socialLinks = [
+  { href: "https://github.com/Reeflex-M", icon: FiGithub, label: "GitHub" },
+  { href: "https://www.linkedin.com/in/mathis-floch-873392268/", icon: FiLinkedin, label: "LinkedIn" },
+  { href: "/cv.pdf", icon: HiOutlineDocumentText, label: "CV", download: true },
 ];
 
 function Navbar() {
@@ -28,106 +34,150 @@ function Navbar() {
     }
   });
 
-  const handleNavClick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    setIsOpen(false);
-  };
-
   return (
     <motion.header
-      className="backdrop-blur-md bg-white/80 shadow-lg fixed w-full top-0 z-50"
+      className="backdrop-blur-md bg-white fixed w-full top-0 z-50"
       variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
     >
-      <nav className="max-w-7xl mx-auto flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
-        <a href="#home" className="flex-shrink-0 flex items-center" onClick={handleNavClick}>
-          <motion.span
-            className="text-2xl font-bold text-primary"
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 400 }}
-          >
-            Portfolio
-          </motion.span>
-        </a>
-
-        <div className="hidden md:flex items-center space-x-1 lg:space-x-2 text-sm lg:text-base flex-1 justify-center px-4">
+      <nav className="max-w-7xl mx-auto flex items-center h-16 px-4 sm:px-6 lg:px-8 relative">
+        {/* Navigation gauche */}
+        <div className="flex-1 hidden md:flex items-center justify-end pr-24 space-x-12">
           {navItems.map(({ href, label }) => (
             <a
               key={href}
               href={href}
-              onClick={handleNavClick}
-              className="px-3 py-2 font-medium rounded-lg transition-all duration-300 relative text-gray-700 hover:text-primary after:content-[''] after:absolute after:bottom-1 after:left-3 after:right-full hover:after:right-3 after:h-[2px] after:bg-primary after:transition-all after:duration-300"
+              className="text-primary hover:text-accent transition-all duration-300 font-medium text-base"
             >
               {label}
             </a>
           ))}
         </div>
 
-        <div className="flex items-center">
-          <motion.a
-            href="#contact"
-            onClick={handleNavClick}
-            whileHover={{ scale: 1.03, y: -1 }}
-            whileTap={{ scale: 0.98 }}
-            className="hidden md:block bg-primary text-white px-5 py-2 rounded-full font-medium shadow-md hover:bg-primary/90 transition-all duration-200"
-          >
-            Me contacter
-          </motion.a>
-
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="p-2 md:hidden rounded-lg hover:bg-gray-100"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+        {/* Logo central */}
+        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+          <a href="#home" className="flex items-center">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400 }}
+              className="p-2"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-              />
-            </svg>
-          </button>
+              {/* Placeholder pour votre icône - à remplacer par votre choix */}
+              <svg
+                className="w-12 h-12 text-secondary"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 2L2 7L12 12L22 7L12 2Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M2 17L12 22L22 17"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M2 12L12 17L22 12"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </motion.div>
+          </a>
         </div>
 
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="absolute top-20 left-0 right-0 bg-white shadow-lg border-t md:hidden"
+        {/* Navigation droite - Réseaux sociaux */}
+        <div className="flex-1 hidden md:flex items-center justify-start pl-24 space-x-8">
+          {socialLinks.map(({ href, icon: Icon, label, download }) => (
+            <motion.a
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              download={download}
+              whileHover={{ scale: 1.1, y: -2 }}
+              className="text-primary hover:text-accent transition-colors duration-200 flex items-center gap-1"
+              aria-label={label}
             >
-              <div className="flex flex-col py-4 px-4 space-y-2">
-                {navItems.map(({ href, label }) => (
+              <Icon className="w-6 h-6" />
+              {label === "CV" && <span className="font-medium">{label}</span>}
+            </motion.a>
+          ))}
+        </div>
+
+        {/* Menu mobile */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden p-2 rounded-lg hover:bg-primary/10"
+        >
+          <svg
+            className="w-6 h-6 text-primary"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+            />
+          </svg>
+        </button>
+      </nav>
+
+      <div className="h-[1px] w-[85%] mx-auto bg-accent opacity-60"></div>
+
+      {/* Menu mobile déroulant */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden bg-white border-t"
+          >
+            <div className="px-4 py-4 space-y-3">
+              {navItems.map(({ href, label }) => (
+                <a
+                  key={href}
+                  href={href}
+                  className="block px-3 py-2 text-primary hover:text-accent transition-colors duration-200 font-medium"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {label}
+                </a>
+              ))}
+              <div className="flex justify-center space-x-6 pt-4 border-t">
+                {socialLinks.map(({ href, icon: Icon, label, download }) => (
                   <a
                     key={href}
                     href={href}
-                    onClick={handleNavClick}
-                    className="px-3 py-2 font-medium rounded-lg transition-all duration-300 text-gray-700 hover:text-primary hover:bg-gray-50"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download={download}
+                    className="text-primary hover:text-accent transition-colors duration-200 flex items-center gap-1"
+                    aria-label={label}
                   >
-                    {label}
+                    <Icon className="w-5 h-5" />
+                    {label === "CV" && <span className="font-medium">{label}</span>}
                   </a>
                 ))}
-                <motion.a
-                  href="#contact"
-                  onClick={handleNavClick}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="bg-primary text-white px-5 py-2 rounded-full font-medium text-center shadow-md hover:bg-primary/90 transition-all duration-200"
-                >
-                  Me contacter
-                </motion.a>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }

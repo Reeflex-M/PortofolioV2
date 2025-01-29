@@ -7,9 +7,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#2563eb",
-        secondary: "#1e293b",
-        accent: "#3b82f6",
+        primary: "#0A1828",    // Bleu foncé classique
+        secondary: "#178582",  // Turquoise
+        accent: "#BFA181",     // Or
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

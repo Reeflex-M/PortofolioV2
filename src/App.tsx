@@ -3,6 +3,9 @@ import Footer from './components/layout/Footer'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
 import Contact from './components/sections/Contact'
+import ScrollArrow from './components/ui/ScrollArrow'
+import Skills from './components/sections/Skills'
+import Projects from './components/sections/Projects'
 
 function App() {
   return (
@@ -10,7 +13,10 @@ function App() {
       <Navbar />
       <main className="flex-1 w-full">
         <Hero />
+        <ScrollArrow />
         <About />
+        <Skills />
+        <Projects />
         <Contact />
       </main>
       <Footer />
