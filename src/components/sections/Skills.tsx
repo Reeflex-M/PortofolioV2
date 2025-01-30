@@ -16,26 +16,31 @@ const skillCategories: SkillCategory[] = [
   {
     title: "Frontend",
     skills: [
-      { name: "React", level: 85, color: "#61DAFB" },
-      { name: "TypeScript", level: 80, color: "#3178C6" },
-      { name: "JavaScript", level: 90, color: "#F7DF1E" },
-      { name: "HTML/CSS", level: 95, color: "#E34F26" },
+      { name: "React", level: 60, color: "#61DAFB" },
+      { name: "TypeScript", level: 60, color: "#3178C6" },
+      { name: "JavaScript", level: 70, color: "#F7DF1E" },
+      { name: "HTML/CSS", level: 90, color: "#E34F26" },
       { name: "TailwindCSS", level: 85, color: "#38B2AC" },
+      { name: "Bootstrap", level: 85, color: "#7952B3" },
+      { name: "Flutter", level: 70, color: "#02569B" },
     ]
   },
   {
     title: "Backend",
     skills: [
-      { name: "Node.js", level: 75, color: "#339933" },
-      { name: "Python", level: 70, color: "#3776AB" },
-      { name: "PHP", level: 65, color: "#777BB4" },
+      { name: "Node.js", level: 80, color: "#339933" },
+      { name: "Python (django)", level: 80, color: "#3776AB" },
+      { name: "Java", level: 40, color: "#007396" },
+      { name: "C#", level: 60, color: "#239120" },
+      { name: "C", level: 20, color: "#A8B9CC" },
+      { name: "PHP (Symfony)", level: 70, color: "#777BB4" },
       { name: "MySQL", level: 75, color: "#4479A1" },
     ]
   },
   {
     title: "Divers",
     skills: [
-      { name: "Git", level: 85, color: "#F05032" },
+      { name: "Git", level: 70, color: "#F05032" },
       { name: "Docker", level: 60, color: "#2496ED" },
       { name: "Linux", level: 70, color: "#FCC624" },
       { name: "Figma", level: 75, color: "#F24E1E" },
