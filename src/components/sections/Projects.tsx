@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import PdfViewer from '../PdfViewer';
 
 interface Project {
   title: string;
   description: string;
   technologies: string[];
   imageUrl: string;
-  githubUrl?: string;
+  detailsUrl: string;
+  pdfUrl?: string;
   demoUrl?: string;
 }
 
@@ -14,23 +16,23 @@ const projects: Project[] = [
   {
     title: "Portfolio Personnel",
     description: "Portfolio moderne développé avec React et TypeScript, utilisant Framer Motion pour les animations.",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    technologies: ["React", "TypeScript", "Tailwind CSS"],
     imageUrl: "/projects/logo-m.png",
-    githubUrl: "https://github.com/yourusername/portfolio",
+    detailsUrl: "/projects/portfolio-details",
   },
   {
-    title: "Portfolio Personnel 2",
-    description: "Portfolio moderne développé avec React et TypeScript, utilisant Framer Motion pour les animations.",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    imageUrl: "/projects/logo-m.png",
-    githubUrl: "https://github.com/yourusername/portfolio",
+    title: "PsychoQuizz",
+    description: "Quizz, permettant d'orienter un étudiant : Programmation ou réseaux.",
+    technologies: ["Php Symfony6", "Tailwind CSS", "MySQL"],
+    imageUrl: "/projects/psychoquizz.png",
+    pdfUrl: "./projects/psychoquizz-maquette.pdf"
   },
   {
-    title: "Portfolio Personnel 3",
-    description: "Portfolio moderne développé avec React et TypeScript, utilisant Framer Motion pour les animations.",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    imageUrl: "/projects/logo-m.png",
-    githubUrl: "https://github.com/yourusername/portfolio",
+    title: "Colisimba",
+    description: "Application web de gestion logistique de colis, et de point de livraison.",
+    technologies: ["Php Symfony6", "Bootstrap", "MySQL"],
+    imageUrl: "/projects/colisimba.png",
+    detailsUrl: "/projects/colisimba-details",
   },
   // Ajoutez vos autres projets ici
 ];
@@ -38,6 +40,8 @@ const projects: Project[] = [
 const Projects = () => {
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [showPdfViewer, setShowPdfViewer] = useState(false);
 
   // Extraire toutes les technologies uniques
   const allTechnologies = Array.from(
@@ -48,6 +52,19 @@ const Projects = () => {
   const filteredProjects = selectedTech
     ? projects.filter(project => project.technologies.includes(selectedTech))
     : projects;
+
+  const handleProjectClick = (project: Project, e: React.MouseEvent) => {
+    e.preventDefault(); // Empêcher le comportement par défaut
+    e.stopPropagation(); // Empêcher la propagation de l'événement
+    setSelectedProject(project);
+    if (project.pdfUrl) {
+      setShowPdfViewer(true);
+    }
+  };
+
+  const handleClosePdfViewer = () => {
+    setShowPdfViewer(false);
+  };
 
   return (
     <section id="projects" className="min-h-screen py-20 bg-[#0c0c0c]">
@@ -104,20 +121,23 @@ const Projects = () => {
               <motion.div
                 key={project.title}
                 layout
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.5 }}
                 className="relative group"
-                onHoverStart={() => setHoveredIndex(index)}
-                onHoverEnd={() => setHoveredIndex(null)}
+                onClick={(e) => handleProjectClick(project, e)}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
                 <div className="bg-[#1c1c1c] rounded-xl overflow-hidden transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl">
-                  <div className="relative h-48 overflow-hidden">
+                  <div 
+                    className="relative h-48 overflow-hidden cursor-pointer"
+                  >
                     <img
                       src={project.imageUrl}
                       alt={project.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                     <motion.div 
                       className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -125,24 +145,27 @@ const Projects = () => {
                       animate={hoveredIndex === index ? { opacity: 1 } : { opacity: 0 }}
                     >
                       <div className="flex gap-4">
-                        {project.githubUrl && (
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="bg-accent text-white px-4 py-2 rounded-full hover:bg-accent/20 transition-all duration-300"
-                          >
-                            Voir sur GitHub
-                          </a>
-                        )}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (project.title === "PsychoQuizz") {
+                              setSelectedProject(project);
+                              setShowPdfViewer(true);
+                            }
+                          }}
+                          className="bg-accent text-white px-4 py-2 rounded-full hover:bg-accent/20 transition-all duration-300"
+                        >
+                          {project.title === "PsychoQuizz" ? "Voir la maquette" : "En savoir plus"}
+                        </button>
                         {project.demoUrl && (
                           <a
                             href={project.demoUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-white text-accent px-4 py-2 rounded-full hover:bg-gray-100 transition-colors"
+                            className="bg-white text-accent px-4 py-2 rounded-full hover:bg-white/20 transition-all duration-300"
+                            onClick={(e) => e.stopPropagation()}
                           >
-                            Demo Live
+                            Voir la démo
                           </a>
                         )}
                       </div>
@@ -177,6 +200,13 @@ const Projects = () => {
           </motion.div>
         </AnimatePresence>
       </motion.div>
+      
+      {showPdfViewer && selectedProject?.pdfUrl && (
+        <PdfViewer
+          pdfUrl={selectedProject.pdfUrl}
+          onClose={handleClosePdfViewer}
+        />
+      )}
     </section>
   );
 };
