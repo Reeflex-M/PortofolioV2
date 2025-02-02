@@ -1,13 +1,60 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/logo-m.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Meta Tags -->
+  <title>Mathis Floch - Développeur Web en Alternance</title>
+  <meta name="description"
+    content="Développeur web en recherche d'alternance à Brest, Morlaix et Lannion. Portfolio présentant mes projets et compétences en développement web.">
+  <meta name="keywords"
+    content="développeur web, alternance, Brest, Morlaix, Lannion, Bretagne, portfolio, développement web, Mathis Floch">
+  <meta name="robots" content="index, follow">
+  <meta name="geo.region" content="FR-BRE">
+  <meta name="geo.placename" content="Bretagne">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mathisfloch.fr/">
+  <meta property="og:title" content="Mathis Floch - Développeur Web en Alternance">
+  <meta property="og:description"
+    content="Développeur web en recherche d'alternance à Brest, Morlaix et Lannion. Découvrez mes projets et compétences.">
+  <meta property="og:image" content="/logo-m.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mathis Floch - Développeur Web en Alternance">
+  <meta name="twitter:description"
+    content="Développeur web en recherche d'alternance à Brest, Morlaix et Lannion. Découvrez mes projets et compétences.">
+  <meta name="twitter:image" content="/logo-m.png">
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+
+  <!-- Schema.org pour Google -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Mathis Floch",
+      "url": "https://mathisfloch.fr",
+      "jobTitle": "Développeur Web en Alternance",
+      "areaServed": {
+        "@type": "Place",
+        "name": "Bretagne",
+        "address": {
+          "@type": "PostalAddress",
+          "addressRegion": "Bretagne",
+          "addressCountry": "FR"
+        }
+      }
+    }
+  </script>
+</body>
+
 </html>

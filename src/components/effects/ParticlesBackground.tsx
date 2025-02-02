@@ -22,22 +22,30 @@ const ParticlesBackground = () => {
       },
       fpsLimit: 120,
       interactivity: {
+        detect_on: "canvas",
         events: {
           onClick: {
             enable: true,
-            mode: "push",
+            mode: "repulse",
           },
           onHover: {
             enable: true,
-            mode: "repulse",
+            mode: "bubble",
+          },
+          resize: {
+            enable: true,
           },
         },
         modes: {
-          push: {
-            quantity: 4,
+          bubble: {
+            distance: 250,
+            size: 0,
+            duration: 2,
+            opacity: 0,
+            speed: 3,
           },
           repulse: {
-            distance: 200,
+            distance: 400,
             duration: 0.4,
           },
         },
@@ -47,37 +55,53 @@ const ParticlesBackground = () => {
           value: "#178582",
         },
         links: {
-          color: "#178582",
-          distance: 150,
-          enable: true,
-          opacity: 0.5,
-          width: 1,
+          enable: false,
         },
         move: {
-          direction: "none",
           enable: true,
-          outModes: {
-            default: "bounce",
-          },
-          random: false,
-          speed: 3,
+          speed: 1,
+          direction: "none" as const,
+          random: true,
           straight: false,
+          outModes: {
+            default: "out" as const,
+          },
+          bounce: false,
+          attract: {
+            enable: false,
+            rotateX: 600,
+            rotateY: 600,
+          },
         },
         number: {
+          value: 160,
           density: {
             enable: true,
-            area: 800,
+            value_area: 800,
           },
-          value: 80,
         },
         opacity: {
-          value: 0.7,
+          value: 1,
+          random: true,
+          animation: {
+            enable: true,
+            speed: 1,
+            minimumValue: 0,
+            sync: false,
+          },
         },
         shape: {
           type: "circle",
         },
         size: {
-          value: { min: 1, max: 5 },
+          value: 3,
+          random: true,
+          animation: {
+            enable: false,
+            speed: 4,
+            minimumValue: 0.3,
+            sync: false,
+          },
         },
       },
       detectRetina: true,

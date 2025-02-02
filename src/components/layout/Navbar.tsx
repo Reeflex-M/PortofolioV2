@@ -17,7 +17,7 @@ const navItems = [
 const socialLinks = [
   { href: "https://github.com/Reeflex-M", icon: FiGithub, label: "GitHub" },
   { href: "https://www.linkedin.com/in/mathis-floch-873392268/", icon: FiLinkedin, label: "LinkedIn" },
-  { href: "/cv.pdf", icon: HiOutlineDocumentText, label: "CV", download: true },
+  { href: "/CV.png", icon: HiOutlineDocumentText, label: "CV", download: true },
 ];
 
 function Navbar() {
@@ -27,9 +27,9 @@ function Navbar() {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious();
-    if (latest < previous || latest < 50) {
+    if (latest < (previous ?? 0) || latest < 50) {
       setHidden(false);
-    } else if (latest > previous && latest > 50) {
+    } else if (latest > (previous ?? 0) && latest > 50) {
       setHidden(true);
     }
   });
@@ -95,10 +95,10 @@ function Navbar() {
         {/* Menu mobile */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 rounded-lg hover:bg-primary/10"
+          className="md:hidden p-2 rounded-lg bg-white hover:bg-black group"
         >
           <svg
-            className="w-6 h-6 text-primary"
+            className="w-6 h-6 text-black group-hover:text-white"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
